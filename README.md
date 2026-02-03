@@ -16,10 +16,7 @@ This is a minimal NestJS + TypeScript sample that exposes an agent-based chat AP
    ```bash
    npm install
    ```
-
-2. Create a `.env` file:
-
-   ```bash
+ 
   # Choose backend: "anthropic" (Claude) or "ollama" (local model)
   LLM_PROVIDER=ollama
 
