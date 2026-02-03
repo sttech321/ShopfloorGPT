@@ -63,7 +63,4 @@ The server listens on `http://localhost:3000/api`.
 All clients are effectively "enabled" for Claude Sonnet by configuring `CLAUDE_MODEL` globally and using the shared `ClaudeProvider` everywhere in the app.
 
 ## Screenshot
-
-Place your UI screenshot at `docs/shopfloorgpt-ui.png` in this repo; GitHub will render it here:
-
-<img src="docs/shopfloorgpt-ui.png" alt="ShopfloorGPT Chat UI" width="100%" />
+<img src="docs/screenshot.png" alt="ShopfloorGPT Chat UI" width="100%" />
