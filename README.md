@@ -67,8 +67,6 @@ All clients are effectively "enabled" for Claude Sonnet by configuring `CLAUDE_M
 
 ## Screenshot
 
-Save your UI screenshot into the repository (for example at `docs/shopfloorgpt-ui.png`), then this Markdown will render it on GitHub:
+Place your UI screenshot at `docs/shopfloorgpt-ui.png` in this repo; GitHub will render it here:
 
-```markdown
-![ShopfloorGPT Chat UI](docs/shopfloorgpt-ui.png)
-```
+<img src="docs/shopfloorgpt-ui.png" alt="ShopfloorGPT Chat UI" width="100%" />
