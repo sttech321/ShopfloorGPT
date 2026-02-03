@@ -9,18 +9,27 @@
       body {
         margin: 0;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        background: #0f172a;
-        color: #e5e7eb;
+        background: #f3f4f6;
+        color: #0f172a;
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        height: 100vh;
+      }
+      .app-shell {
+        flex: 1;
+        max-width: 80vw;
         display: flex;
         flex-direction: column;
-        height: 100vh;
       }
       header {
         padding: 1rem 1.5rem;
-        border-bottom: 1px solid #1f2937;
+        border-bottom: 1px solid #e5e7eb;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(to right, #ffffff, #e5e7eb);
       }
       header h1 {
         margin: 0;
@@ -28,19 +37,95 @@
       }
       header span {
         font-size: 0.8rem;
-        color: #9ca3af;
+        color: #6b7280;
+      }
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.8rem;
+        color: #6b7280;
+      }
+      .theme-toggle {
+        display: inline-flex;
+        border-radius: 999px;
+        padding: 0.12rem;
+        background: #e5e7eb;
+        border: 1px solid #d1d5db;
+      }
+      .theme-btn {
+        border: none;
+        border-radius: 999px;
+        padding: 0.18rem 0.6rem;
+        font-size: 0.72rem;
+        background: transparent;
+        color: #4b5563;
+        cursor: pointer;
+        transition: background 0.12s ease, color 0.12s ease;
+      }
+      .theme-btn.active {
+        background: #ffffff;
+        color: #111827;
       }
       main {
         flex: 1;
         display: flex;
-        flex-direction: column;
         padding: 1rem 1.5rem;
-        gap: 0.75rem;
+        gap: 1rem;
+      }
+      aside {
+        width: 220px;
+        border-right: 1px solid #e5e7eb;
+        padding-right: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .agent-list-title {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #6b7280;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
+      }
+      .agent-item {
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.6rem;
+        border: 1px solid #e5e7eb;
+        background: #f9fafb;
+        color: #0f172a;
+        font-size: 0.8rem;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+      }
+      .agent-item span {
+        display: block;
+      }
+      .agent-name {
+        font-weight: 600;
+        margin-bottom: 0.15rem;
+      }
+      .agent-desc {
+        font-size: 0.75rem;
+        color: #6b7280;
+      }
+      .agent-item.active {
+        border-color: #22c55e;
+        background: #dcfce7;
+        transform: translateY(-1px);
+      }
+      .chat-pane {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
       }
       #messages {
         flex: 1;
         overflow-y: auto;
         padding-right: 0.5rem;
+        padding-bottom: 0.5rem;
       }
       .msg {
         max-width: 70%;
@@ -50,76 +135,339 @@
         font-size: 0.9rem;
         line-height: 1.4;
         white-space: pre-wrap;
+        color: #0f172a;
       }
       .msg.user {
         margin-left: auto;
-        background: #1d4ed8;
+        background: linear-gradient(135deg, #7c3aed, #4f46e5);
+        color: #f9fafb;
       }
       .msg.agent {
         margin-right: auto;
-        background: #111827;
-        border: 1px solid #1f2937;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 10px 25px rgba(15,23,42,0.08);
+        color: #111827;
       }
       .meta {
         display: block;
         font-size: 0.7rem;
-        color: #9ca3af;
+        color: #6b7280;
         margin-bottom: 0.2rem;
+      }
+      .msg.user .meta {
+        color: rgba(249,250,251,0.85);
       }
       form {
         display: flex;
         gap: 0.5rem;
         padding: 0.75rem 1.5rem 1rem;
-        border-top: 1px solid #1f2937;
-        background: #020617;
+        border-top: 1px solid #e5e7eb;
+        background: #ffffff;
       }
       input[type="text"] {
         flex: 1;
         padding: 0.6rem 0.75rem;
         border-radius: 0.5rem;
-        border: 1px solid #4b5563;
-        background: #020617;
-        color: #e5e7eb;
+        border: 1px solid #d1d5db;
+        background: #f9fafb;
+        color: #0f172a;
         font-size: 0.9rem;
       }
       input[type="text"]:focus {
         outline: none;
-        border-color: #60a5fa;
+        border-color: #4f46e5;
       }
       button {
         padding: 0.6rem 1rem;
         border-radius: 0.5rem;
         border: none;
-        background: #22c55e;
-        color: #022c22;
+        background: linear-gradient(to right, #22c55e, #a3e635);
+        color: #052e16;
         font-weight: 600;
         font-size: 0.9rem;
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        box-shadow: 0 10px 25px rgba(21,128,61,0.5);
+        transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
       }
       button:disabled {
         opacity: 0.6;
         cursor: default;
+        box-shadow: none;
+        transform: none;
+      }
+      button:not(:disabled):hover {
+        filter: brightness(1.02);
+        transform: translateY(-1px);
+        box-shadow: 0 14px 30px rgba(21,128,61,0.7);
+      }
+
+      .spinner {
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        border: 2px solid rgba(209,213,219,0.8);
+        border-top-color: rgba(107,114,128,1);
+        animation: spin 0.7s linear infinite;
+      }
+
+      .msg.skeleton {
+        position: relative;
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 8px 18px rgba(15,23,42,0.06);
+        overflow: hidden;
+      }
+      .skeleton-bar {
+        height: 0.75rem;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #e5e7eb, #d1d5db, #e5e7eb);
+        background-size: 200% 100%;
+        animation: shimmer 1.2s infinite;
+      }
+      .skeleton-bar + .skeleton-bar {
+        margin-top: 0.35rem;
+        width: 65%;
+      }
+
+      .typing-dots {
+        display: flex;
+        gap: 0.25rem;
+        margin-top: 0.45rem;
+      }
+      .typing-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 999px;
+        background: #9ca3af;
+        opacity: 0.8;
+        animation: bob 0.9s infinite ease-in-out;
+      }
+      .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+      .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes shimmer {
+        0% { background-position: -150% 0; }
+        100% { background-position: 150% 0; }
+      }
+
+      @keyframes bob {
+        0% { transform: translateY(0); opacity: 0.4; }
+        50% { transform: translateY(-2px); opacity: 1; }
+        100% { transform: translateY(0); opacity: 0.4; }
       }
       #status {
         font-size: 0.75rem;
+        color: #6b7280;
+      }
+      @media (max-width: 900px) {
+        .app-shell {
+          max-width: 100vw;
+        }
+      }
+
+      @media (max-width: 640px) {
+        header, form { padding-left: 1rem; padding-right: 1rem; }
+        main {
+          padding: 1rem;
+          flex-direction: column;
+        }
+        aside {
+          width: 100%;
+          flex-direction: row;
+          overflow-x: auto;
+          padding-right: 0;
+          border-right: none;
+          border-bottom: 1px solid #e5e7eb;
+          margin-bottom: 0.75rem;
+        }
+        .agent-list-title {
+          display: none;
+        }
+        .agent-item {
+          min-width: 180px;
+          margin-right: 0.5rem;
+        }
+        .msg { max-width: 85%; }
+      }
+
+      /* THEME VARIANTS */
+      body.theme-dark {
+        background: radial-gradient(circle at top, #020617 0, #020617 45%, #030712 100%);
+        color: #e5e7eb;
+      }
+      body.theme-dark header {
+        border-bottom-color: #1f2937;
+        background: linear-gradient(to right, rgba(24,24,27,0.95), rgba(9,9,11,0.98));
+      }
+      body.theme-dark header span,
+      body.theme-dark .header-right {
         color: #9ca3af;
       }
-      @media (max-width: 640px) {
-        header, main, form { padding-left: 1rem; padding-right: 1rem; }
-        .msg { max-width: 85%; }
+      body.theme-dark aside {
+        border-right-color: #1f2937;
+      }
+      body.theme-dark .agent-item {
+        border-color: #1f2937;
+        background: radial-gradient(circle at top left, #111827, #020617);
+        color: #e5e7eb;
+      }
+      body.theme-dark .agent-desc {
+        color: #9ca3af;
+      }
+      body.theme-dark .agent-item.active {
+        background: radial-gradient(circle at top left, #14532d, #022c22);
+        border-color: #22c55e;
+      }
+      body.theme-dark .msg.agent {
+        background: #020617;
+        border-color: #1f2937;
+        box-shadow: 0 0 0 1px rgba(15,23,42,0.8), 0 10px 25px rgba(15,23,42,0.8);
+      }
+      body.theme-dark .meta {
+        color: #9ca3af;
+      }
+      body.theme-dark form {
+        border-top-color: #1f2937;
+        background: linear-gradient(to right, #020617, #020617 40%, #030712);
+      }
+      body.theme-dark input[type="text"] {
+        border-color: #4b5563;
+        background: #020617;
+        color: #e5e7eb;
+      }
+      body.theme-dark input[type="text"]:focus {
+        border-color: #60a5fa;
+      }
+      body.theme-dark .spinner {
+        border-color: rgba(15,23,42,0.3);
+        border-top-color: rgba(15,23,42,0.9);
+      }
+      body.theme-dark .msg.skeleton {
+        background: #020617;
+        border-color: #1f2937;
+        box-shadow: 0 8px 18px rgba(15,23,42,0.7);
+      }
+      body.theme-dark .skeleton-bar {
+        background: linear-gradient(90deg, #111827, #1f2937, #111827);
+      }
+      body.theme-dark .typing-dot {
+        background: #9ca3af;
+      }
+      body.theme-dark #status {
+        color: #9ca3af;
+      }
+
+      body.theme-warm {
+        background: #fff7ed;
+        color: #431407;
+      }
+      body.theme-warm header {
+        border-bottom-color: #fed7aa;
+        background: linear-gradient(to right, #fffbeb, #fed7aa);
+      }
+      body.theme-warm header span,
+      body.theme-warm .header-right {
+        color: #9a3412;
+      }
+      body.theme-warm aside {
+        border-right-color: #fed7aa;
+      }
+      body.theme-warm .agent-item {
+        border-color: #fed7aa;
+        background: #fffbeb;
+        color: #431407;
+      }
+      body.theme-warm .agent-desc {
+        color: #b45309;
+      }
+      body.theme-warm .agent-item.active {
+        background: #ffedd5;
+        border-color: #f97316;
+      }
+      body.theme-warm .msg.agent {
+        background: #fff7ed;
+        border-color: #fed7aa;
+        box-shadow: 0 10px 25px rgba(124,45,18,0.12);
+      }
+      body.theme-warm .meta {
+        color: #b45309;
+      }
+      body.theme-warm form {
+        border-top-color: #fed7aa;
+        background: #fffbeb;
+      }
+      body.theme-warm input[type="text"] {
+        border-color: #fed7aa;
+        background: #fffbeb;
+        color: #431407;
+      }
+      body.theme-warm input[type="text"]:focus {
+        border-color: #f97316;
+      }
+      body.theme-warm .spinner {
+        border-color: rgba(254,215,170,0.9);
+        border-top-color: rgba(249,115,22,1);
+      }
+      body.theme-warm .msg.skeleton {
+        background: #fffbeb;
+        border-color: #fed7aa;
+        box-shadow: 0 8px 18px rgba(124,45,18,0.12);
+      }
+      body.theme-warm .skeleton-bar {
+        background: linear-gradient(90deg, #fed7aa, #fed7aa, #ffedd5);
+      }
+      body.theme-warm .typing-dot {
+        background: #fb923c;
+      }
+      body.theme-warm #status {
+        color: #b45309;
       }
     </style>
   </head>
   <body>
+    <div class="app-shell">
     <header>
       <div>
-        <h1>ShopfloorGPT Chat</h1>
+        <h1 id="title">ShopfloorGPT Chat</h1>
         <span>Backend: NestJS + LangGraph + Claude</span>
       </div>
-      <span id="status">Ready</span>
+      <div class="header-right">
+        <span id="status">Ready</span>
+        <div class="theme-toggle" aria-label="Theme selector">
+          <button type="button" class="theme-btn" data-theme="light">Light</button>
+          <button type="button" class="theme-btn" data-theme="dark">Dark</button>
+          <button type="button" class="theme-btn" data-theme="warm">Warm</button>
+        </div>
+      </div>
     </header>
     <main>
-      <div id="messages"></div>
+      <aside>
+        <div class="agent-list-title">Agents</div>
+        <button class="agent-item active" data-agent="shopfloor" type="button">
+          <span class="agent-name">ShopfloorGPT</span>
+          <span class="agent-desc">Incidents, downtime, planning</span>
+        </button>
+        <button class="agent-item" data-agent="opscoach" type="button">
+          <span class="agent-name">OpsCoachGPT</span>
+          <span class="agent-desc">Flow, waste, throughput coaching</span>
+        </button>
+        <button class="agent-item" data-agent="quality" type="button">
+          <span class="agent-name">QualityGPT</span>
+          <span class="agent-desc">Defects, scrap, root-cause</span>
+        </button>
+      </aside>
+      <section class="chat-pane">
+        <div id="messages"></div>
+      </section>
     </main>
     <form id="chat-form">
       <input
@@ -128,14 +476,72 @@
         placeholder="Describe an incident, downtime, or planning question..."
         autocomplete="off"
       />
-      <button type="submit">Send</button>
+      <button type="submit">
+        <span class="btn-label">Send</span>
+        <span class="spinner" id="btn-spinner" style="display:none;"></span>
+      </button>
     </form>
+    </div>
     <script>
       const messagesEl = document.getElementById('messages');
       const form = document.getElementById('chat-form');
       const input = document.getElementById('input');
       const statusEl = document.getElementById('status');
+      const titleEl = document.getElementById('title');
+      const agentButtons = Array.from(document.querySelectorAll('.agent-item'));
+      const sendButton = form.querySelector('button');
+      const btnSpinner = document.getElementById('btn-spinner');
+      const themeButtons = Array.from(document.querySelectorAll('.theme-btn'));
       const userId = 'demo-operator-1';
+
+      const AGENTS = {
+        shopfloor: {
+          name: 'ShopfloorGPT',
+          placeholder: 'Describe an incident, downtime, or planning question...',
+          intro:
+            'You are chatting with ShopfloorGPT. Example questions:\n\n' +
+            '- "Machine 12 has an unexpected downtime incident, what should I check first?"\n' +
+            '- "We have a safety near-miss on Line 3, how should we document and follow up?"\n' +
+            '- "How can we adjust the schedule to recover today\'s lost output?"',
+          id: 'shopfloor',
+        },
+        opscoach: {
+          name: 'OpsCoachGPT',
+          placeholder: 'Ask about flow, bottlenecks, or process waste...',
+          intro:
+            'You are chatting with OpsCoachGPT. Example questions:\n\n' +
+            '- "Our assembly line keeps building up WIP before station 4, what can we try?"\n' +
+            '- "How do we run a quick kaizen on changeover time for Press 5?"\n' +
+            '- "What are simple daily management routines for team leaders?"',
+          id: 'opscoach',
+        },
+        quality: {
+          name: 'QualityGPT',
+          placeholder: 'Ask about defects, scrap, or root-cause analysis...',
+          intro:
+            'You are chatting with QualityGPT. Example questions:\n\n' +
+            '- "We see a spike in surface scratches on part A, where should we look first?"\n' +
+            '- "How do I structure a simple 5-Why for a recurring leak test failure?"\n' +
+            '- "What containment should we put in place after a customer complaint?"',
+          id: 'quality',
+        },
+      };
+
+      let currentAgent = 'shopfloor';
+
+      function applyTheme(theme) {
+        document.body.classList.remove('theme-dark', 'theme-warm');
+        if (theme === 'dark') {
+          document.body.classList.add('theme-dark');
+        } else if (theme === 'warm') {
+          document.body.classList.add('theme-warm');
+        }
+        themeButtons.forEach((btn) => {
+          const isActive = btn.getAttribute('data-theme') === theme;
+          btn.classList.toggle('active', isActive);
+        });
+        localStorage.setItem('chatTheme', theme);
+      }
 
       function appendMessage(role, text) {
         const wrap = document.createElement('div');
@@ -151,27 +557,61 @@
         messagesEl.scrollTop = messagesEl.scrollHeight;
       }
 
+      function createSkeletonMessage() {
+        const wrap = document.createElement('div');
+        wrap.className = 'msg agent skeleton';
+        const bar1 = document.createElement('div');
+        bar1.className = 'skeleton-bar';
+        const bar2 = document.createElement('div');
+        bar2.className = 'skeleton-bar';
+        const dotsWrap = document.createElement('div');
+        dotsWrap.className = 'typing-dots';
+        for (let i = 0; i < 3; i += 1) {
+          const dot = document.createElement('div');
+          dot.className = 'typing-dot';
+          dotsWrap.appendChild(dot);
+        }
+        wrap.appendChild(bar1);
+        wrap.appendChild(bar2);
+        wrap.appendChild(dotsWrap);
+        messagesEl.appendChild(wrap);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        return wrap;
+      }
+ 
+      function resetConversation() {
+        messagesEl.innerHTML = '';
+        appendMessage('agent', AGENTS[currentAgent].intro);
+      }
+
       async function sendMessage(text) {
-        statusEl.textContent = 'Sending...';
-        form.querySelector('button').disabled = true;
+        statusEl.textContent = 'Thinking...';
+        sendButton.disabled = true;
+        btnSpinner.style.display = 'inline-block';
+        const skeleton = createSkeletonMessage();
         try {
           const res = await fetch('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId, message: text, context: {} }),
+            body: JSON.stringify({ userId, message: text, agent: currentAgent, context: {} }),
           });
           if (!res.ok) {
             const err = await res.text();
             throw new Error(err || res.statusText);
           }
           const data = await res.json();
+          messagesEl.removeChild(skeleton);
           appendMessage('agent', data.reply ?? '[no reply]');
           statusEl.textContent = 'Ready';
         } catch (err) {
           console.error(err);
+          if (skeleton.parentNode === messagesEl) {
+            messagesEl.removeChild(skeleton);
+          }
           statusEl.textContent = 'Error talking to backend (see console)';
         } finally {
-          form.querySelector('button').disabled = false;
+          sendButton.disabled = false;
+          btnSpinner.style.display = 'none';
         }
       }
 
@@ -184,11 +624,40 @@
         void sendMessage(text);
       });
 
-      // Initial helper message
-      appendMessage(
-        'agent',
-        'Describe a shopfloor situation, e.g. "Machine 12 has an unexpected downtime incident" or "How should we adjust the production schedule?"'
-      );
+      function selectAgent(id) {
+        currentAgent = id;
+        agentButtons.forEach((btn) => {
+          const isActive = btn.getAttribute('data-agent') === id;
+          btn.classList.toggle('active', isActive);
+        });
+        const cfg = AGENTS[id];
+        if (cfg) {
+          titleEl.textContent = `${cfg.name} Chat`;
+          input.placeholder = cfg.placeholder;
+        }
+        resetConversation();
+      }
+
+      agentButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-agent');
+          if (!id || id === currentAgent) return;
+          selectAgent(id);
+        });
+      });
+
+      themeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const theme = btn.getAttribute('data-theme') || 'light';
+          applyTheme(theme);
+        });
+      });
+
+      // Initial state
+      const storedTheme = localStorage.getItem('chatTheme') || 'light';
+      applyTheme(storedTheme);
+      input.placeholder = AGENTS[currentAgent].placeholder;
+      resetConversation();
     </script>
   </body>
 </html>

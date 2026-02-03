@@ -5,6 +5,7 @@ export class ChatMessageDto {
   userId!: string;
   message!: string;
   context?: Record<string, unknown>;
+  agent?: string; // which agent/persona to use
 }
 
 @Controller('chat')
@@ -17,6 +18,7 @@ export class ChatController {
     const reply = await this.chatService.handleUserMessage({
       userId,
       message,
+      agent: body.agent,
       context: context ?? {},
     });
 
